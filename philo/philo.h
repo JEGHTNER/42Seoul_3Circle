@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/21 21:47:30 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:57:53 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_info
 	int				num_of_must_eat;
 	int				start_time;
 	int				is_dead;
+	int				dead_id;
 	int				is_full;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print;

@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:04 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/22 11:50:19 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/22 16:37:43 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,28 @@ int	ft_get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-int	ft_usleep(long long time)
-{
-	long long	finish_time;
+// int	ft_usleep(long long time)
+// {
+// 	long long	finish_time;
 
-	finish_time = time + ft_get_time();
-	while (finish_time > ft_get_time())
-		usleep(100);
-	return (0);
+// 	finish_time = time + ft_get_time();
+// 	while (finish_time > ft_get_time())
+// 		usleep(100);
+// 	return (0);
+// }
+
+int	ft_usleep(long long time_to_sleep, t_info *info)
+{
+	long long	start;
+
+	start = ft_get_time();
+	while (1)
+	{
+		if (ft_get_time() - start >= time_to_sleep)
+			break ;
+		usleep(info->num_of_philo * 2);
+	}
+	return(0);
 }
 
 int	ft_init_info(t_info *info, int argc, char **argv)
@@ -57,6 +71,7 @@ int	ft_init_info(t_info *info, int argc, char **argv)
 		info->num_of_must_eat = ft_atoi(argv[5]);
 	info->start_time = ft_get_time();
 	info->is_dead = 0;
+	info->dead_id = 0;
 	info->is_full = 0;
 	info->forks = malloc(sizeof(pthread_mutex_t) * info->num_of_philo);
 	if (!info->forks)
@@ -170,8 +185,8 @@ void	ft_monitor(t_philo *philo)
 		i = 0;
 		while (i < info->num_of_philo)
 		{
-			pthread_mutex_lock(info->print);
 			time = ft_get_time();
+			pthread_mutex_lock(info->print);
 			if (time - philo[i].last_eat_time > info->time_to_die && !philo[i].full)
 			{
 				// pthread_mutex_lock(info->print);
@@ -180,6 +195,7 @@ void	ft_monitor(t_philo *philo)
 				{
 					info->is_dead = 1;
 					// pthread_mutex_lock(info->print);
+					printf("died time:%d\n",time - philo[i].last_eat_time);
 					printf("%d %d died\n", time - info->start_time, philo[i].id);
 					// usleep(100000);
 					// pthread_mutex_unlock(info->print);
@@ -190,6 +206,12 @@ void	ft_monitor(t_philo *philo)
 			pthread_mutex_unlock(info->print);
 			i++;
 		}
+		// if (info->is_dead == 1)
+		// {
+		// 	pthread_mutex_lock(info->print);
+		// 	printf("%d %d died\n", ft_get_time() - info->start_time, info->dead_id);
+		// 	return ;
+		// }
 	}
 }
 
@@ -199,10 +221,17 @@ void	*ft_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->info->time_to_eat);
+		ft_usleep(philo->info->time_to_eat, philo->info);
 	// pthread_mutex_lock(philo->dead);
-	while (philo->info->is_dead == 0 && philo->info->is_full == 0)
+	while (1)
 	{
+		pthread_mutex_lock(philo->dead);
+		if (philo->info->is_dead || philo->info->is_full)
+		{
+			pthread_mutex_unlock(philo->dead);
+			return (NULL);
+		}
+		pthread_mutex_unlock(philo->dead);
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
@@ -221,12 +250,10 @@ void	ft_eat(t_philo *philo)
 		philo->full = 1;
 		// return ;
 	}
-	if (info->is_dead == 1 || info->is_full == 1)
-		return ;
 	pthread_mutex_lock(philo->forks + philo->left_fork);
 	pthread_mutex_lock(philo->forks + philo->right_fork);
 	// philo->last_eat_time = ft_get_time();
-	pthread_mutex_lock(philo->print);
+	pthread_mutex_lock(philo->info->print);
 	// printf("%d %d has taken a fork\n", philo->last_eat_time - info->start_time,
 	// 		philo->id);
 	// printf("%d %d has taken a fork\n", philo->last_eat_time - info->start_time,
@@ -237,12 +264,15 @@ void	ft_eat(t_philo *philo)
 			philo->id);
 	printf("%d %d has taken a fork\n", ft_get_time() - info->start_time,
 			philo->id);
-	philo->last_eat_time = ft_get_time();
-	printf("%d %d is eating %d\n", philo->last_eat_time - info->start_time,
-			philo->id, ++(philo->eat_count));
-	pthread_mutex_unlock(philo->print);
 	// philo->last_eat_time = ft_get_time();
-	ft_usleep(info->time_to_eat);
+	// printf("%d %d is eating %d\n", philo->last_eat_time - info->start_time,
+	// 		philo->id, ++(philo->eat_count));
+	printf("%d %d is eating %d\n", ft_get_time() - info->start_time,
+			philo->id, ++(philo->eat_count));
+	pthread_mutex_unlock(philo->info->print);
+	philo->last_eat_time = ft_get_time();
+	ft_usleep(info->time_to_eat, info);
+	// philo->last_eat_time = ft_get_time();
 	// philo->eat_count++;
 	pthread_mutex_unlock(philo->forks + philo->left_fork);
 	pthread_mutex_unlock(philo->forks + philo->right_fork);
@@ -255,10 +285,10 @@ void	ft_sleep(t_philo *philo)
 	info = philo->info;
 	if (info->is_dead == 1 || info->is_full == 1)
 		return ;
-	pthread_mutex_lock(philo->print);
+	pthread_mutex_lock(philo->info->print);
 	printf("%d %d is sleeping\n", ft_get_time() - info->start_time, philo->id);
-	pthread_mutex_unlock(philo->print);
-	ft_usleep(info->time_to_sleep);
+	pthread_mutex_unlock(philo->info->print);
+	ft_usleep(info->time_to_sleep, info);
 }
 
 void	ft_think(t_philo *philo)
@@ -268,9 +298,9 @@ void	ft_think(t_philo *philo)
 	info = philo->info;
 	if (info->is_dead == 1 || info->is_full == 1)
 		return ;
-	pthread_mutex_lock(philo->print);
+	pthread_mutex_lock(philo->info->print);
 	printf("%d %d is thinking\n", ft_get_time() - info->start_time, philo->id);
-	pthread_mutex_unlock(philo->print);
+	pthread_mutex_unlock(philo->info->print);
 }
 
 int	main(int argc, char **argv)
