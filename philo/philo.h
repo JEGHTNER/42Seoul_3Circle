@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/22 14:57:53 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/24 16:35:47 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ typedef struct s_philo
 	int				last_eat_time;
 	int				full;
 	pthread_t		thread_id;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	*print;
-	pthread_mutex_t	*dead;
 	struct s_info	*info;
 }				t_philo;
 
@@ -44,11 +41,10 @@ typedef struct s_info
 	int				num_of_must_eat;
 	int				start_time;
 	int				is_dead;
-	int				dead_id;
 	int				is_full;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print;
-	pthread_mutex_t	*dead;
+	pthread_mutex_t	*stop;
 }				t_info;
 
 int		ft_atoi(const char *string);
