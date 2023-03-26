@@ -6,7 +6,7 @@
 #    By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 21:57:45 by jehelee           #+#    #+#              #
-#    Updated: 2023/03/20 21:57:50 by jehelee          ###   ########.fr        #
+#    Updated: 2023/03/26 15:51:43 by jehelee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ NAME = philo
 # BN_DIR		= ./bonus/
 SRCS_DIR	= ./src/
 
-SRCS = error_utils.c ft_atoi.c main.c
+SRCS = free_error_utils.c ft_atoi.c init_functions.c monitoring.c main.c \
+		time_utils.c thread_functions.c 
 
 SRCS_BN = 
 
@@ -31,7 +32,7 @@ CFLAGS = -Wextra -Werror -Wall
 all : ${NAME}
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -g
+	$(CC) $(CFLAGS) -c -o $@ $^ -g 
 
 
 ${NAME} : ${OBJ}
