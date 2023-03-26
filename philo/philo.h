@@ -6,24 +6,32 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/24 16:35:47 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/26 18:56:18 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 
-#include <pthread.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
+# include <sys/time.h>
+
+enum	e_errno
+{
+	SUCCESS,
+	ARGUMENT_ERROR,
+	THREAD_ERROR,
+	MUTEX_ERROR,
+	MALLOC_ERROR
+};
 
 typedef struct s_philo
 {
 	int				id;
 	int				eat_count;
-	int				is_eating;
 	int				left_fork;
 	int				right_fork;
 	int				last_eat_time;
@@ -43,14 +51,37 @@ typedef struct s_info
 	int				is_dead;
 	int				is_full;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*print;
-	pthread_mutex_t	*stop;
+	pthread_mutex_t	print;
 }				t_info;
 
+//free_error_utils.c
+int		ft_error(char *str, int error_code);
+void	ft_free_philo(t_philo *philo, t_info *info);
+
+//ft_atoi.c
+int		ft_isdigit(int c);
 int		ft_atoi(const char *string);
-int		ft_error(char *str);
-void	ft_putstr_fd(char *str);
 
+//init_functions.c
+int		check_argv(int argc, char **argv, t_info *info);
+int		ft_init_info(t_info *info, int argc, char **argv);
+int		ft_init_philo(t_philo **philo, t_info *info);
 
+//monitoring.c
+void	ft_monitor(t_philo *philo);
+int		check_is_full(t_philo *philo);
+int		print_philo(t_philo *philo, char *str);
+int		check_dead(t_philo *philo);
+
+//thread_functions.c
+int		ft_start_philo(t_philo *philo, t_info *info);
+void	*ft_philo(void *arg);
+void	ft_eat(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_think(t_philo *philo);
+
+//time_utils.c
+int		ft_get_time(void);
+int		ft_usleep(long long time_to_sleep, t_info *info);
 
 #endif
