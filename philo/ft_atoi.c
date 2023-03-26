@@ -6,13 +6,13 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:26:17 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/18 17:02:17 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/26 15:45:41 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
