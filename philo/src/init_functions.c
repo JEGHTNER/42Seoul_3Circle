@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:44:32 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 19:00:05 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:33:52 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	check_argv(int argc, char **argv, t_info *info)
 {
@@ -34,7 +34,7 @@ int	check_argv(int argc, char **argv, t_info *info)
 	if (info->num_of_philo < 1 || info->time_to_die < 0 || info->time_to_eat < 0
 		|| info->time_to_sleep < 0)
 		return (ARGUMENT_ERROR);
-	if (argc == 6 && info->num_of_must_eat < 0)
+	if (argc == 6 && info->num_of_must_eat < 1)
 		return (ARGUMENT_ERROR);
 	return (0);
 }

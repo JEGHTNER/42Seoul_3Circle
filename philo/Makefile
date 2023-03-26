@@ -3,40 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+         #
+#    By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 21:57:45 by jehelee           #+#    #+#              #
-#    Updated: 2023/03/26 15:51:43 by jehelee          ###   ########.fr        #
+#    Updated: 2023/03/26 19:32:23 by jehelee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-# INC_DIR		= ./lib/include/
-# LIB_DIR		= ./lib/
-# BN_DIR		= ./bonus/
+INC_DIR		= ./include/
 SRCS_DIR	= ./src/
 
 SRCS = free_error_utils.c ft_atoi.c init_functions.c monitoring.c main.c \
 		time_utils.c thread_functions.c 
 
-SRCS_BN = 
 
-OBJ = $(SRCS:.c=.o)
+OBJ = $(addprefix $(SRCS_DIR)/, $(SRCS:.c=.o))
 
 CC = cc
 CFLAGS = -Wextra -Werror -Wall
 
 #rules
-	
+
 all : ${NAME}
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -g 
+	$(CC) $(CFLAGS) -c -o $@ $^ -g -I $(INC_DIR)
 
 
 ${NAME} : ${OBJ}
-	$(CC) -o $(NAME) ${OBJ}
+	$(CC) -o $(NAME) ${OBJ} -I $(INC_DIR)
 
 clean	:
 	rm -rf $(OBJ)

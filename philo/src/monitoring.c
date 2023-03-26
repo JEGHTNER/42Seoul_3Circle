@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:49:54 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 19:01:30 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:33:52 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 void	ft_monitor(t_philo *philo)
 {
@@ -83,7 +83,6 @@ int	check_dead(t_philo *philo)
 			{
 				info->is_dead = 1;
 				pthread_mutex_lock(&info->print);
-				printf("died time:%d\n", time - philo[i].last_eat_time);
 				printf("%d %d died\n", time - info->start_time, philo[i].id);
 				pthread_mutex_unlock(&info->print);
 			}

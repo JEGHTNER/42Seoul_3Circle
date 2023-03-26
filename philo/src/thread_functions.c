@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   thread_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:48:17 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 17:18:38 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:43:04 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	ft_start_philo(t_philo *philo, t_info *info)
 {

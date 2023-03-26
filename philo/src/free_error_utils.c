@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_error_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:14:25 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 18:44:49 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/26 19:37:35 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 int	ft_error(char *str, int error_code)
 {
