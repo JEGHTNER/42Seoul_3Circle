@@ -6,7 +6,7 @@
 #    By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 21:57:45 by jehelee           #+#    #+#              #
-#    Updated: 2023/03/26 19:32:23 by jehelee          ###   ########.fr        #
+#    Updated: 2023/03/26 19:44:57 by jehelee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,4 @@ fclean	:
 
 re		: fclean all
 
-# bonus: 
-# 	make WITH_BONUS=1 all
-
-.PHONY: all libs clean fclean re bonus
+.PHONY: all libs clean fclean re
