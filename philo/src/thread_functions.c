@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:48:17 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 12:57:22 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 14:04:39 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ void	ft_eat(t_philo *philo)
 	print_philo(philo, "has taken a fork");
 	print_philo(philo, "is eating");
 	++(philo->eat_count);
+	philo->last_eat_time = ft_get_time();
 	pthread_mutex_lock(&info->print);
 	if (info->num_of_must_eat > 0 && \
 	philo->eat_count >= info->num_of_must_eat)
 		philo->full = 1;
-	pthread_mutex_unlock(&info->print);
-	pthread_mutex_lock(&info->print);
-	philo->last_eat_time = ft_get_time();
 	pthread_mutex_unlock(&info->print);
 	ft_usleep(info->time_to_eat, info);
 	pthread_mutex_unlock(&info->forks[philo->left_fork]);
