@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:49:54 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 13:46:08 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 13:54:04 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_monitor(t_philo *philo)
 			if (check_is_full(philo))
 				return ;
 		}
-		if (check_dead(philo))
+		if (check_dead(philo, info))
 			return ;
 	}
 }
@@ -68,16 +68,14 @@ int	print_philo(t_philo *philo, char *str)
 	return (0);
 }
 
-int	check_dead(t_philo *philo)
+int	check_dead(t_philo *philo, t_info *info)
 {
 	int		time;
 	int		last_eat_time;
 	int		i;
-	t_info	*info;
 
-	i = 0;
-	info = philo->info;
-	while (i < info->num_of_philo)
+	i = -1;
+	while (++i < info->num_of_philo)
 	{
 		pthread_mutex_lock(&info->print);
 		last_eat_time = philo[i].last_eat_time;
@@ -89,14 +87,11 @@ int	check_dead(t_philo *philo)
 			{
 				pthread_mutex_lock(&info->print);
 				info->is_dead = 1;
-				pthread_mutex_unlock(&info->print);
-				pthread_mutex_lock(&info->print);
 				printf("%d %d died\n", time - info->start_time, philo[i].id);
 				pthread_mutex_unlock(&info->print);
 			}
 			return (1);
 		}
-		i++;
 	}
 	return (0);
 }

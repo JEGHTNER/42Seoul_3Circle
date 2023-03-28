@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 12:16:05 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 13:54:31 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		ft_init_philo(t_philo **philo, t_info *info);
 void	ft_monitor(t_philo *philo);
 int		check_is_full(t_philo *philo);
 int		print_philo(t_philo *philo, char *str);
-int		check_dead(t_philo *philo);
+int		check_dead(t_philo *philo, t_info *info);
 
 //thread_functions.c
 int		ft_start_philo(t_philo *philo, t_info *info);
