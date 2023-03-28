@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:49:54 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 19:33:52 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 13:46:08 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	check_is_full(t_philo *philo)
 	is_full = 1;
 	while (i < philo->info->num_of_philo)
 	{
+		pthread_mutex_lock(&philo->info->print);
 		if (!philo[i].full)
 			is_full = 0;
+		pthread_mutex_unlock(&philo->info->print);
 		i++;
 	}
 	if (is_full)
@@ -69,6 +71,7 @@ int	print_philo(t_philo *philo, char *str)
 int	check_dead(t_philo *philo)
 {
 	int		time;
+	int		last_eat_time;
 	int		i;
 	t_info	*info;
 
@@ -76,12 +79,17 @@ int	check_dead(t_philo *philo)
 	info = philo->info;
 	while (i < info->num_of_philo)
 	{
+		pthread_mutex_lock(&info->print);
+		last_eat_time = philo[i].last_eat_time;
+		pthread_mutex_unlock(&info->print);
 		time = ft_get_time();
-		if (time - philo[i].last_eat_time > info->time_to_die && !philo[i].full)
+		if (time - last_eat_time > info->time_to_die && !philo[i].full)
 		{
 			if (!info->is_dead)
 			{
+				pthread_mutex_lock(&info->print);
 				info->is_dead = 1;
+				pthread_mutex_unlock(&info->print);
 				pthread_mutex_lock(&info->print);
 				printf("%d %d died\n", time - info->start_time, philo[i].id);
 				pthread_mutex_unlock(&info->print);

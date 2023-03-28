@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:48:17 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 19:43:04 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 12:57:22 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@ void	*ft_philo(void *arg)
 		return (NULL);
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->info->time_to_eat, philo->info);
-	while (philo->info->is_dead == 0 && philo->info->is_full == 0)
+	while (1)
 	{
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
+		pthread_mutex_lock(&philo->info->print);
+		if (philo->info->is_dead == 1 || philo->info->is_full == 1)
+		{
+			pthread_mutex_unlock(&philo->info->print);
+			return (NULL);
+		}
+		pthread_mutex_unlock(&philo->info->print);
 	}
 	return (NULL);
 }
@@ -56,10 +63,14 @@ void	ft_eat(t_philo *philo)
 	print_philo(philo, "has taken a fork");
 	print_philo(philo, "is eating");
 	++(philo->eat_count);
+	pthread_mutex_lock(&info->print);
 	if (info->num_of_must_eat > 0 && \
 	philo->eat_count >= info->num_of_must_eat)
 		philo->full = 1;
+	pthread_mutex_unlock(&info->print);
+	pthread_mutex_lock(&info->print);
 	philo->last_eat_time = ft_get_time();
+	pthread_mutex_unlock(&info->print);
 	ft_usleep(info->time_to_eat, info);
 	pthread_mutex_unlock(&info->forks[philo->left_fork]);
 	pthread_mutex_unlock(&info->forks[philo->right_fork]);
@@ -70,8 +81,13 @@ void	ft_sleep(t_philo *philo)
 	t_info	*info;
 
 	info = philo->info;
+	pthread_mutex_lock(&info->print);
 	if (info->is_dead == 1 || info->is_full == 1)
+	{
+		pthread_mutex_unlock(&info->print);
 		return ;
+	}
+	pthread_mutex_unlock(&info->print);
 	print_philo(philo, "is sleeping");
 	ft_usleep(info->time_to_sleep, info);
 }
@@ -81,7 +97,12 @@ void	ft_think(t_philo *philo)
 	t_info	*info;
 
 	info = philo->info;
+	pthread_mutex_lock(&info->print);
 	if (info->is_dead == 1 || info->is_full == 1)
+	{
+		pthread_mutex_unlock(&info->print);
 		return ;
+	}
+	pthread_mutex_unlock(&info->print);
 	print_philo(philo, "is thinking");
 }
