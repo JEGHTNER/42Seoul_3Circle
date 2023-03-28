@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:44:32 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 12:16:10 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 14:21:17 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int	ft_init_info(t_info *info, int argc, char **argv)
 		info->num_of_must_eat = ft_atoi(argv[5]);
 	info->is_dead = 0;
 	info->is_full = 0;
+	if (check_argv(argc, argv, info))
+		return (ARGUMENT_ERROR);
 	info->forks = malloc(sizeof(pthread_mutex_t) * info->num_of_philo);
 	if (!info->forks)
 		return (MALLOC_ERROR);
 	if (ft_init_mutex(info))
 		return (MUTEX_ERROR);
-	if (check_argv(argc, argv, info))
-		return (ARGUMENT_ERROR);
 	info->start_time = ft_get_time();
 	return (0);
 }
@@ -97,3 +97,22 @@ int	ft_init_philo(t_philo **philo, t_info *info)
 	}
 	return (0);
 }
+
+// int	ft_init_philo(t_philo *philo, t_info *info)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < info->num_of_philo)
+// 	{
+// 		(philo)[i].id = i + 1;
+// 		(philo)[i].eat_count = 0;
+// 		(philo)[i].left_fork = i;
+// 		(philo)[i].right_fork = (i + 1) % info->num_of_philo;
+// 		(philo)[i].last_eat_time = ft_get_time();
+// 		(philo)[i].full = 0;
+// 		(philo)[i].info = info;
+// 		i++;
+// 	}
+// 	return (0);
+// }
