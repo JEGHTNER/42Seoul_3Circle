@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:44:32 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 14:21:17 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:44:11 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,3 @@ int	ft_init_philo(t_philo **philo, t_info *info)
 	}
 	return (0);
 }
-
-// int	ft_init_philo(t_philo *philo, t_info *info)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < info->num_of_philo)
-// 	{
-// 		(philo)[i].id = i + 1;
-// 		(philo)[i].eat_count = 0;
-// 		(philo)[i].left_fork = i;
-// 		(philo)[i].right_fork = (i + 1) % info->num_of_philo;
-// 		(philo)[i].last_eat_time = ft_get_time();
-// 		(philo)[i].full = 0;
-// 		(philo)[i].info = info;
-// 		i++;
-// 	}
-// 	return (0);
-// }
