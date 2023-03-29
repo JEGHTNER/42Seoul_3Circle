@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:04 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 14:21:26 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/29 17:32:15 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,19 @@ time_to_die time_to_eat time_to_sleep", ARGUMENT_ERROR));
 		return (ft_error("Thread error", THREAD_ERROR));
 	ft_free_philo(philo, &info);
 	return (SUCCESS);
+}
+
+int	ft_start_philo(t_philo *philo, t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->num_of_philo)
+	{
+		if (pthread_create(&philo[i].thread_id, NULL, ft_philo, &philo[i]))
+			return (THREAD_ERROR);
+		i++;
+	}
+	ft_monitor(philo);
+	return (0);
 }
