@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/29 21:55:34 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/29 23:26:08 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int		ft_atoi(const char *string);
 int		check_argv(int argc, char **argv, t_info *info);
 int		ft_init_info(t_info *info, int argc, char **argv);
 int		ft_init_philo(t_philo **philo, t_info *info);
+int		ft_init_mutex(t_info *info);
+
 
 //monitoring.c
 void	ft_monitor(t_philo *philo);
