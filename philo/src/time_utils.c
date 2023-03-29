@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:43:34 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/26 19:33:52 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:32:41 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_get_time(void)
+long long	ft_get_time(void)
 {
 	struct timeval	time;
 

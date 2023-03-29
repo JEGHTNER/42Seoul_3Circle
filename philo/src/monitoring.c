@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:49:54 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/28 13:54:04 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:33:25 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	print_philo(t_philo *philo, char *str)
 		pthread_mutex_unlock(&philo->info->print);
 		return (1);
 	}
-	printf("%d %d %s\n", ft_get_time() - \
+	printf("%lld %d %s\n", ft_get_time() - \
 	philo->info->start_time, philo->id, str);
 	pthread_mutex_unlock(&philo->info->print);
 	return (0);
@@ -70,9 +70,9 @@ int	print_philo(t_philo *philo, char *str)
 
 int	check_dead(t_philo *philo, t_info *info)
 {
-	int		time;
-	int		last_eat_time;
-	int		i;
+	long long		time;
+	long long		last_eat_time;
+	int				i;
 
 	i = -1;
 	while (++i < info->num_of_philo)
@@ -87,7 +87,7 @@ int	check_dead(t_philo *philo, t_info *info)
 			{
 				pthread_mutex_lock(&info->print);
 				info->is_dead = 1;
-				printf("%d %d died\n", time - info->start_time, philo[i].id);
+				printf("%lld %d died\n", time - info->start_time, philo[i].id);
 				pthread_mutex_unlock(&info->print);
 			}
 			return (1);
