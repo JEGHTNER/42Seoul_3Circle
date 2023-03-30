@@ -6,7 +6,7 @@
 #    By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 21:57:45 by jehelee           #+#    #+#              #
-#    Updated: 2023/03/29 17:44:25 by jehelee          ###   ########.fr        #
+#    Updated: 2023/03/29 23:39:11 by jehelee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,11 @@ CFLAGS = -Wextra -Werror -Wall
 all : ${NAME}
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I $(INC_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $^ -I $(INC_DIR) -g -fsanitize=address
 
 
 ${NAME} : ${OBJ}
-	$(CC) -o $(NAME) ${OBJ} -I $(INC_DIR)
+	$(CC) -o $(NAME) ${OBJ} -I $(INC_DIR) -g -fsanitize=address
 
 clean	:
 	rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:49:54 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/29 18:33:25 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/30 23:23:38 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	print_philo(t_philo *philo, char *str)
 
 int	check_dead(t_philo *philo, t_info *info)
 {
-	long long		time;
-	long long		last_eat_time;
-	int				i;
+	long long	time;
+	long long	last_eat_time;
+	int			i;
 
 	i = -1;
 	while (++i < info->num_of_philo)
