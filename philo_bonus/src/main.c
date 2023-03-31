@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:04 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/31 22:06:34 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 02:08:11 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,5 @@ time_to_die time_to_eat time_to_sleep", ARGUMENT_ERROR));
 		}
 	}
 	ft_kill(philo);
-	i = -1;
-	while (++i < info.num_of_philo)
-		waitpid(philo[i].pid, NULL, 0);
     return (1);
 }

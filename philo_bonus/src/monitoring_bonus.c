@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitoring.c                                       :+:      :+:    :+:   */
+/*   monitoring_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:49:54 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/31 21:42:42 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 02:07:03 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ void	ft_kill(t_philo *philo)
 	i = 0;
 	while (i < info->num_of_philo)
 		kill(philo[i++].pid, SIGTERM);
+	sem_close(info->forks);
+	sem_close(info->print);
+	sem_close(info->stop);
+	sem_unlink("forks");
+	sem_unlink("print");
+	sem_unlink("stop");
+	free(philo);
 	return ;
 }
 
@@ -88,21 +95,9 @@ int	check_dead(t_philo *philo, t_info *info)
 
 	sem_wait(info->print);
 	last_eat_time = philo->last_eat_time;
-	// sem_post(info->print);
 	time = ft_get_time();
 	if (time - last_eat_time > info->time_to_die && !philo->full)
 	{
-		// if (!info->is_dead)
-		// {
-		// 	// sem_wait(info->stop);
-		// 	sem_wait(info->print);
-		// 	info->is_dead = 1;
-		// 	printf("%lld %d died\n", time - info->start_time, philo->id);
-		// 	sem_wait(info->stop);
-		// 	sem_post(info->print);
-		// }
-		// sem_wait(info->print);
-		info->is_dead = 1;
 		printf("%lld %d died\n", time - info->start_time, philo->id);
 		sem_post(info->stop);
 		return (1);

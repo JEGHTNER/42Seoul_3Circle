@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thread_functions.c                                 :+:      :+:    :+:   */
+/*   thread_functions_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:48:17 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/30 20:13:06 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 01:47:17 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_philo(void *arg)
 		return (ft_eat_case1(philo));
 	while (1)
 	{
-		ft_eat(philo);
+		ft_eat_bonus(philo);
 		ft_sleep(philo);
 		ft_think(philo);
 		sem_wait(philo->info->print);
@@ -37,7 +37,7 @@ void	*ft_philo(void *arg)
 	return (NULL);
 }
 
-void	ft_eat(t_philo *philo)
+void	ft_eat_bonus(t_philo *philo)
 {
 	t_info	*info;
 

@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/31 18:36:44 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 02:12:26 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/time.h>
+//delete
+# include <string.h>
 
 enum	e_errno
 {
@@ -41,6 +43,7 @@ typedef struct s_philo
 	long long		last_eat_time;
 	pthread_t		thread_id;
 	pid_t			pid;
+	sem_t			*check;
 	struct s_info	*info;
 }				t_philo;
 
@@ -57,13 +60,14 @@ typedef struct s_info
 	sem_t			*forks;
 	sem_t			*print;
 	sem_t			*stop;
+	sem_t			*check;
 }				t_info;
 
 //free_error_utils.c
 int			ft_error(char *str, int error_code);
 void		ft_free_philo(t_philo *philo, t_info *info);
 
-//ft_atoi.c
+//ft_atoi.c, ft_itoa.c
 int			ft_isdigit(int c);
 int			ft_atoi(const char *string);
 
@@ -84,7 +88,7 @@ void		ft_kill(t_philo *philo);
 //thread_functions.c
 int			ft_start_philo(t_philo *philo, t_info *info);
 void		*ft_philo(void *arg);
-void		ft_eat(t_philo *philo);
+void		ft_eat_bonus(t_philo *philo);
 void		ft_sleep(t_philo *philo);
 void		ft_think(t_philo *philo);
 void		*ft_eat_case1(t_philo *philo);

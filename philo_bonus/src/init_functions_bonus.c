@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_functions.c                                   :+:      :+:    :+:   */
+/*   init_functions_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:44:32 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/31 00:09:26 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 02:05:13 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_init_semaphore(t_info *info)
 	sem_unlink("/forks");
 	sem_unlink("/print");
 	sem_unlink("/stop");
+	sem_unlink("/check");
 	info->forks = sem_open("/forks", O_CREAT, 0644, info->num_of_philo);
 	if (info->forks == SEM_FAILED)
 		return (SEMAPHORE_ERROR);
@@ -51,6 +52,8 @@ int	ft_init_semaphore(t_info *info)
 	if (info->print == SEM_FAILED)
 		return (SEMAPHORE_ERROR);
 	info->stop = sem_open("/stop", O_CREAT, 0644, 0);
+	if (info->stop == SEM_FAILED)
+		return (SEMAPHORE_ERROR);
 	return (0);
 }
 
@@ -75,7 +78,7 @@ int	ft_init_info(t_info *info, int argc, char **argv)
 
 int	ft_init_philo(t_philo **philo, t_info *info)
 {
-	int	i;
+	int		i;
 
 	*philo = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo);
 	if (!*philo)
