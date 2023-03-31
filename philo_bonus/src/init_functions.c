@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:44:32 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/30 22:55:44 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/31 00:09:26 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_init_semaphore(t_info *info)
 	info->print = sem_open("/print", O_CREAT, 0644, 1);
 	if (info->print == SEM_FAILED)
 		return (SEMAPHORE_ERROR);
-	info->stop = sem_open("/stop", O_CREAT, 0644, 1);
+	info->stop = sem_open("/stop", O_CREAT, 0644, 0);
 	return (0);
 }
 

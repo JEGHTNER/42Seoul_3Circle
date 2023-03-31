@@ -6,13 +6,14 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/30 20:43:50 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/03/31 18:36:44 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 
 # include <pthread.h>
+# include <signal.h>
 # include <semaphore.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -39,6 +40,7 @@ typedef struct s_philo
 	int				full;
 	long long		last_eat_time;
 	pthread_t		thread_id;
+	pid_t			pid;
 	struct s_info	*info;
 }				t_philo;
 
@@ -76,6 +78,8 @@ void		ft_monitor(t_philo *philo);
 int			check_is_full(t_philo *philo);
 int			print_philo(t_philo *philo, char *str);
 int			check_dead(t_philo *philo, t_info *info);
+void		ft_kill(t_philo *philo);
+
 
 //thread_functions.c
 int			ft_start_philo(t_philo *philo, t_info *info);
