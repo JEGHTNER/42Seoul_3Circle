@@ -6,7 +6,7 @@
 #    By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 21:57:45 by jehelee           #+#    #+#              #
-#    Updated: 2023/04/01 02:08:24 by jehelee          ###   ########.fr        #
+#    Updated: 2023/04/01 21:39:33 by jehelee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = philo_bonus
 INC_DIR		= ./include/
 SRCS_DIR	= ./src/
 
-SRCS = free_error_utils_bonus.c ft_strjoin.c ft_itoa.c ft_atoi.c init_functions_bonus.c monitoring_bonus.c main.c \
+SRCS = free_error_utils_bonus.c ft_itoa.c ft_atoi.c init_functions_bonus.c monitoring_bonus.c main.c \
 		time_utils_bonus.c thread_functions_bonus.c 
 
 
@@ -29,11 +29,10 @@ CFLAGS = -Wextra -Werror -Wall
 all : ${NAME}
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I $(INC_DIR) -g -fsanitize=thread
-
+	$(CC) $(CFLAGS) -c -o $@ $^ -I $(INC_DIR) -g 
 
 ${NAME} : ${OBJ}
-	$(CC) -o $(NAME) ${OBJ} -I $(INC_DIR) -g -fsanitize=thread
+	$(CC) -o $(NAME) ${OBJ} -I $(INC_DIR) -g 
 
 clean	:
 	rm -rf $(OBJ)

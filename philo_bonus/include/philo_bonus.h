@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/04/01 02:12:26 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 21:54:54 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/time.h>
 //delete
 # include <string.h>
+# include <fcntl.h>
 
 enum	e_errno
 {
@@ -60,7 +61,9 @@ typedef struct s_info
 	sem_t			*forks;
 	sem_t			*print;
 	sem_t			*stop;
+	sem_t			*must_eat;
 	sem_t			*check;
+	sem_t			*dead;
 }				t_info;
 
 //free_error_utils.c
@@ -70,6 +73,7 @@ void		ft_free_philo(t_philo *philo, t_info *info);
 //ft_atoi.c, ft_itoa.c
 int			ft_isdigit(int c);
 int			ft_atoi(const char *string);
+char		*ft_itoa(int n);
 
 //init_functions.c
 int			check_argv(int argc, char **argv, t_info *info);
@@ -79,7 +83,7 @@ int			ft_init_semaphore(t_info *info);
 
 //monitoring.c
 void		ft_monitor(t_philo *philo);
-int			check_is_full(t_philo *philo);
+void		*check_is_full(void *arg);
 int			print_philo(t_philo *philo, char *str);
 int			check_dead(t_philo *philo, t_info *info);
 void		ft_kill(t_philo *philo);

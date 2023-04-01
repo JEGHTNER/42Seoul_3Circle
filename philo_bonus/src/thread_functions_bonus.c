@@ -6,7 +6,7 @@
 /*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 15:48:17 by jehelee           #+#    #+#             */
-/*   Updated: 2023/04/01 01:47:17 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/01 21:27:35 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	ft_eat_bonus(t_philo *philo)
 	print_philo(philo, "has taken a fork");
 	print_philo(philo, "is eating");
 	++(philo->eat_count);
-	sem_wait(info->print);
+	sem_wait(philo->check);
 	philo->last_eat_time = ft_get_time();
 	if (info->num_of_must_eat > 0 && \
-	philo->eat_count >= info->num_of_must_eat)
-		philo->full = 1;
-	sem_post(info->print);
+	philo->eat_count == info->num_of_must_eat)
+		sem_post(info->must_eat);
+	sem_post(philo->check);
 	ft_usleep(info->time_to_eat, info);
 	sem_post(info->forks);
 	sem_post(info->forks);
