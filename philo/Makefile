@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+         #
+#    By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 21:57:45 by jehelee           #+#    #+#              #
-#    Updated: 2023/04/01 20:48:32 by jehelee          ###   ########.fr        #
+#    Updated: 2023/04/02 15:12:32 by jehelee          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,22 +18,21 @@ SRCS_DIR	= ./src/
 SRCS = free_error_utils.c ft_atoi.c init_functions.c monitoring.c main.c \
 		time_utils.c thread_functions.c 
 
-
 OBJ = $(addprefix $(SRCS_DIR), $(SRCS:.c=.o))
 
 CC = cc
 CFLAGS = -Wextra -Werror -Wall
-
+# CFLAGS += -g -fsanitize=thread
 #rules
 
 all : ${NAME}
 
 %.o : %.c
-	$(CC) $(CFLAGS) -c -o $@ $^ -I $(INC_DIR) -g
+	$(CC) $(CFLAGS) -c -o $@ $^ -I $(INC_DIR)
 
 ${NAME} : ${OBJ}
-	$(CC) -o $(NAME) ${OBJ} -I $(INC_DIR) -g
-
+	$(CC) $(CFLAGS) -o $(NAME) ${OBJ} -I $(INC_DIR)
+	
 clean	:
 	rm -rf $(OBJ)
 	# rm -rf $(OBJS_BN)

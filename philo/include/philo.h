@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehelee <jehelee@student.42.kr>            +#+  +:+       +#+        */
+/*   By: jehelee <jehelee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:01:28 by jehelee           #+#    #+#             */
-/*   Updated: 2023/03/30 23:24:17 by jehelee          ###   ########.fr       */
+/*   Updated: 2023/04/02 15:04:22 by jehelee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int			ft_init_info(t_info *info, int argc, char **argv);
 int			ft_init_philo(t_philo **philo, t_info *info);
 int			ft_init_mutex(t_info *info);
 
-
 //monitoring.c
 void		ft_monitor(t_philo *philo);
 int			check_is_full(t_philo *philo);
@@ -81,7 +80,6 @@ void		ft_eat(t_philo *philo);
 void		ft_sleep(t_philo *philo);
 void		ft_think(t_philo *philo);
 void		*ft_eat_case1(t_philo *philo);
-
 
 //time_utils.c
 long long	ft_get_time(void);
